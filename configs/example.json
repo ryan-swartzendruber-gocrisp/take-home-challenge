@@ -44,7 +44,7 @@
                 "field": "Count"
             },
             "parse": {
-                "type": "int"
+                "type": "float"
             }
         },
         "Unit": {

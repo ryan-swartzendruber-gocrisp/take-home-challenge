@@ -71,6 +71,8 @@ def parse(cell_value, row, header_row, transform_config):
             value = int(value)
         elif data_type in ['string', 'str']:
             value = str(value)
+        elif data_type == 'float':
+            value = float(value.replace(',',''))
         elif data_type == 'datetime':
             value = datetime.strptime(value, '%Y-%m-%d')
         else:
@@ -102,7 +104,7 @@ def concatenate(cell_value, row, header_row, transform_config):
 def proper_case(cell_value, row, header_row, transform_config):
     return string.capwords(cell_value)
 
-config = get_config_from_file('./configs/proper_case.json')
+config = get_config_from_file('./configs/parse_float.json')
 
 for row in loop_over_csv('./data/example.csv', config):
     print(row)
