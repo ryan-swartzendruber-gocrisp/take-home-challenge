@@ -59,7 +59,17 @@ def source(_, row, header_row, transform_config):
     
     return value
 
-config = get_config_from_file('./configs/source.json')
+def parse(cell_value, row, header_row, transform_config):
+    value = cell_value
+
+    if 'type' in transform_config:
+        value = eval(transform_config['type'])(value)
+    else:
+        raise Exception(f"Parse transformation requires 'type': {transform_config}")
+    
+    return value
+
+config = get_config_from_file('./configs/parse.json')
 
 for row in loop_over_csv('./data/example.csv', config):
     print(row)
