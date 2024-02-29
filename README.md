@@ -24,7 +24,9 @@ Take-Home Challenge for Crisp Interview Process
 - nesting transforms
 - support more parse types
 - support customizable date format
+- prevent break with no header row
 
 # questions/assumptions
 - what to do with converted data
     - write to file?
+

@@ -4,37 +4,34 @@ import string
 from datetime import datetime
 from itertools import dropwhile, takewhile
 
-def loop_over_csv(path_to_file: str, config):
-    header_row_count, column_definitions = parse_config(config)
+def clean_csv(path_to_file: str, config):
+    has_header_row, column_definitions = parse_config(config)
 
     with open(path_to_file, "r") as file:
         reader = csv.reader(file)
-        rows_processed_count = 0
-        header_row = []
+        if has_header_row:
+            header_row = next(reader)
+            cleaned_header_row = [k for k, v in column_definitions.items()]
+            yield cleaned_header_row
         
         for row in reader:
-            if rows_processed_count >= header_row_count:
-                cleaned_row = transform_row(row, header_row, column_definitions)
-                yield cleaned_row
-            else:
-                header_row = row
+            cleaned_row = transform_row(row, header_row, column_definitions)
+            yield cleaned_row
             
-            rows_processed_count += 1
-
 def get_config_from_file(path_to_file: str):
     with open(path_to_file, "r") as file:
         return json.load(file)
 
 def parse_config(config):
-    header_row_count = 0
-    if 'header_row_count' in config:
-        header_row_count = config['header_row_count']
+    has_header_row = False
+    if 'has_header_row' in config:
+        has_header_row = config['has_header_row']
     
     column_definitions = {}
     if 'column_definitions' in config:
         column_definitions = config['column_definitions']
     
-    return header_row_count, column_definitions
+    return has_header_row, column_definitions
 
 def transform_row(row, header_row, column_definitions):
     new_row = []
@@ -106,6 +103,6 @@ def proper_case(cell_value, row, header_row, transform_config):
 
 config = get_config_from_file('./configs/example.json')
 
-for row in loop_over_csv('./data/example.csv', config):
+for row in clean_csv('./data/example.csv', config):
     print(row)
 

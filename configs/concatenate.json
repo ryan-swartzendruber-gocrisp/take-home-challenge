@@ -1,5 +1,5 @@
 {
-    "header_row_count": 1,
+    "has_header_row": true,
     "column_definitions": {
         "OrderDate": {
             "concatenate": {
