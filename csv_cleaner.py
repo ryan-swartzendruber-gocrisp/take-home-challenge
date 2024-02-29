@@ -55,7 +55,7 @@ def source(cell_value, row, header_row, transform_config):
         position = header_row.index(field)
         value = row[position]
     elif 'literal' in transform_config:
-        value = literal
+        value = transform_config['literal']
     else:
         raise Exception(f"Source transform misconfigured: {transform_config}")
     
@@ -104,7 +104,7 @@ def concatenate(cell_value, row, header_row, transform_config):
 def proper_case(cell_value, row, header_row, transform_config):
     return string.capwords(cell_value)
 
-config = get_config_from_file('./configs/parse_float.json')
+config = get_config_from_file('./configs/example.json')
 
 for row in loop_over_csv('./data/example.csv', config):
     print(row)
