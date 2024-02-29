@@ -20,3 +20,10 @@ Take-Home Challenge for Crisp Interview Process
 
 - async
 - additional transforms
+- nesting transforms
+- support more parse types
+- support customizable date format
+
+# questions/assumptions
+- what to do with converted data
+    - write to file?

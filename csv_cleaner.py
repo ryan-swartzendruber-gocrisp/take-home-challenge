@@ -1,5 +1,6 @@
 import csv
 import json
+from datetime import datetime
 from itertools import dropwhile, takewhile
 
 def loop_over_csv(path_to_file: str, config):
@@ -45,7 +46,7 @@ def transform_row(row, header_row, column_definitions):
     
     return new_row
 
-def source(_, row, header_row, transform_config):
+def source(cell_value, row, header_row, transform_config):
     value = None
 
     if 'field' in transform_config:
@@ -63,13 +64,42 @@ def parse(cell_value, row, header_row, transform_config):
     value = cell_value
 
     if 'type' in transform_config:
-        value = eval(transform_config['type'])(value)
+        match transform_config['type']:
+            case "int":
+                value = int(value)
+            case "datetime":
+                value = datetime.strptime(value, '%Y-%m-%d')
+            case "string":
+                value
+            case _:
+                raise Exception(f"Parse transformation does not support this type: {transform_config}")
     else:
         raise Exception(f"Parse transformation requires 'type': {transform_config}")
     
     return value
 
-config = get_config_from_file('./configs/parse.json')
+def concatenate(cell_value, row, header_row, transform_config):
+    fields = None
+    if 'fields' in transform_config:
+        fields = transform_config['fields']
+    else:
+        raise Exception(f"Concatenate transform requires 'fields' array: {transform_config}")
+
+    separator = ' '
+    if 'separator' in transform_config:
+        separator = transform_config['separator']
+    
+    values = []
+
+    for field in fields:
+        position = header_row.index(field)
+        values.append(row[position])
+
+    return separator.join(values)
+
+
+
+config = get_config_from_file('./configs/parse_datetime.json')
 
 for row in loop_over_csv('./data/example.csv', config):
     print(row)

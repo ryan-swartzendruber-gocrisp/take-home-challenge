@@ -1,0 +1,15 @@
+{
+    "header_row_count": 1,
+    "column_definitions": {
+        "OrderDate": {
+            "concatenate": {
+                "fields": [
+                    "Year",
+                    "Month",
+                    "Day"
+                ],
+                "separator": "-"
+            }
+        }
+    }
+}
