@@ -12,6 +12,7 @@ Take-Home Challenge for Crisp Interview Process
 
 - potentially a context obj
 
+- tests
 - alternative delimiters, text-qualifiers in config
 - validate transforms in config
 - tests

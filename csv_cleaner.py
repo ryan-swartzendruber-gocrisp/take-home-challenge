@@ -1,5 +1,6 @@
 import csv
 import json
+import string
 from datetime import datetime
 from itertools import dropwhile, takewhile
 
@@ -64,15 +65,16 @@ def parse(cell_value, row, header_row, transform_config):
     value = cell_value
 
     if 'type' in transform_config:
-        match transform_config['type']:
-            case "int":
-                value = int(value)
-            case "datetime":
-                value = datetime.strptime(value, '%Y-%m-%d')
-            case "string":
-                value
-            case _:
-                raise Exception(f"Parse transformation does not support this type: {transform_config}")
+        data_type = transform_config['type']
+
+        if data_type in ['integer', 'int']:
+            value = int(value)
+        elif data_type in ['string', 'str']:
+            value = str(value)
+        elif data_type == 'datetime':
+            value = datetime.strptime(value, '%Y-%m-%d')
+        else:
+            raise Exception(f"Parse transformation does not support this type: {transform_config}")
     else:
         raise Exception(f"Parse transformation requires 'type': {transform_config}")
     
@@ -97,9 +99,10 @@ def concatenate(cell_value, row, header_row, transform_config):
 
     return separator.join(values)
 
+def proper_case(cell_value, row, header_row, transform_config):
+    return string.capwords(cell_value)
 
-
-config = get_config_from_file('./configs/parse_datetime.json')
+config = get_config_from_file('./configs/proper_case.json')
 
 for row in loop_over_csv('./data/example.csv', config):
     print(row)

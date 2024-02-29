@@ -1,0 +1,11 @@
+{
+    "header_row_count": 1,
+    "column_definitions": {
+        "ProductName": {
+            "source": {
+                "field": "Product Name"
+            },
+            "proper_case": {}
+        }
+    }
+}
