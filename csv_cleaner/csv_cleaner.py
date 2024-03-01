@@ -15,11 +15,11 @@ def clean_csv(path_to_file: str, config):
         if has_header_row:
             header_row = next(reader)
             cleaned_header_row = [k for k, v in column_definitions.items()]
-            yield cleaned_header_row
+            yield cleaned_header_row, True, None
         
         for row in reader:
-            cleaned_row = transform_row(row, header_row, column_definitions)
-            yield cleaned_row
+            cleaned_row, is_successfully_processed_row, failure = transform_row(row, header_row, column_definitions)
+            yield cleaned_row, is_successfully_processed_row, failure
             
 def get_config_from_file(path_to_file: str):
     with open(path_to_file, "r") as file:
@@ -38,12 +38,22 @@ def parse_config(config):
 
 def transform_row(row, header_row, column_definitions):
     new_row = []
-    for _, transforms in column_definitions.items():
-        cell_value = None
-        for name, transform_config in transforms.items():
-            cell_value = globals()[name](cell_value, row, header_row, transform_config)
+    is_successfully_processed_row = True
+    failure = None
 
-        new_row.append(cell_value)
-    
-    return new_row
+    try:
+        for output_column, transforms in column_definitions.items():
+            cell_value = None
+            try: 
+                for name, transform_config in transforms.items():
+                        cell_value = globals()[name](cell_value, row, header_row, transform_config)
+            except Exception as e:
+                raise Exception(f"output_column: {output_column}, transform: {name}, exception: {str(e)}")
+
+            new_row.append(cell_value)
+    except Exception as e:
+        is_successfully_processed_row = False
+        failure = (row, str(e))
+
+    return new_row, is_successfully_processed_row, failure
 

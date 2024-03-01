@@ -39,6 +39,7 @@ For any given output column, the required transformations are defined in a json 
 ## Backlog
 
 - Collect bad rows
+- Simplify header row stuff
 - Validate each row's column count against the header row
 - Validate config. Make sure transforms actually exist
 - Async processing of rows
@@ -49,5 +50,3 @@ For any given output column, the required transformations are defined in a json 
 - Additional transforms (like replace, arithmetic, etc.)
 - Support more date formats
 - detailed instructions for setup of asdf and direnv
-    - Might have to do some apt work (liblzma-dev and tk-dev) to get python to compile
-
