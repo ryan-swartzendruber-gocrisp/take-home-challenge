@@ -1,0 +1,10 @@
+{
+    "has_header_row": true,
+    "column_definitions": {
+        "OrderId": {
+            "source": {
+                "field": "Order Number"
+            }
+        }
+    }
+}

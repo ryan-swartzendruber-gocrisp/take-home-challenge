@@ -1,0 +1,18 @@
+{
+    "has_header_row": true,
+    "column_definitions": {
+        "OrderDate": {
+            "concatenate": {
+                "fields": [
+                    "Year",
+                    "Month",
+                    "Day"
+                ],
+                "separator": "-"
+            },
+            "parse": {
+                "type": "datetime"
+            }
+        }
+    }
+}

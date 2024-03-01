@@ -1,0 +1,59 @@
+{
+    "has_header_row": true,
+    "column_definitions": {
+        "OrderId": {
+            "source": {
+                "field": "Order Number"
+            },
+            "parse": {
+                "type": "int"
+            }
+        },
+        "OrderDate": {
+            "concatenate": {
+                "fields": [
+                    "Year",
+                    "Month",
+                    "Day"
+                ],
+                "separator": "-"
+            },
+            "parse": {
+                "type": "datetime"
+            }
+        },
+        "ProductId": {
+            "source": {
+                "field": "Product Number"
+            },
+            "parse": {
+                "type": "str"
+            }
+        },
+        "ProductName": {
+            "source": {
+                "field": "Product Name"
+            },
+            "proper_case": {},
+            "parse": {
+                "type": "str"
+            }
+        },
+        "Quantity": {
+            "source": {
+                "field": "Count"
+            },
+            "parse": {
+                "type": "float"
+            }
+        },
+        "Unit": {
+            "source": {
+                "literal": "kg"
+            },
+            "parse": {
+                "type": "str"
+            }
+        }
+    }
+}
