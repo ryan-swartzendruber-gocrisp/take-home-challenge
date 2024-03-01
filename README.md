@@ -1,4 +1,4 @@
-# take-home-challenge
+# Take-Home Challenge
 Take-Home Challenge for Crisp Interview Process
 
 ## Project Summary
