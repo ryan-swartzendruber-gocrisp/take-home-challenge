@@ -7,5 +7,8 @@ from csv_cleaner import get_config_from_file, clean_csv
 
 config = get_config_from_file('../configs/example.json')
 
-for row in clean_csv('../data/example.csv', config):
-    print(row)
+for row, is_successfully_processed_row, failure in clean_csv('../data/bad_row.csv', config):
+    if not is_successfully_processed_row:
+        print(failure)
+    else:
+        print(row)
