@@ -1,5 +1,4 @@
 {
-    "has_header_row": true,
     "column_definitions": {
         "ProductName": {
             "source": {

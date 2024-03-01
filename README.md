@@ -38,7 +38,6 @@ For any given output column, the required transformations are defined in a json 
 
 ## Backlog
 
-- Collect bad rows
 - Simplify header row stuff
 - Validate each row's column count against the header row
 - Validate config. Make sure transforms actually exist
