@@ -5,7 +5,7 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from transforms import source, parse, concatenate, proper_case
+from transforms import *
 
 def clean_csv(path_to_file: str, config):
     column_definitions = parse_config(config)
