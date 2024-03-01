@@ -25,6 +25,7 @@ Take-Home Challenge for Crisp Interview Process
 - support more parse types
 - support customizable date format
 - prevent break with no header row
+- index out of bounds with header row
 
 # questions/assumptions
 - what to do with converted data
